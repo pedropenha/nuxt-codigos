@@ -5,7 +5,7 @@
         <input v-model="codigo" type="text" class="form-control"/>
       </div>
       <div class="pb-3">
-        <button @click="enviarCodigo" :class="status === 200 ? 'btn btn-success w-100' : 'btn btn-info w-100'">Enviar código</button>
+        <button @click="enviarCodigo" :class="status === 200 ? 'btn btn-success w-100' : status === 500 ? 'btn btn-danger w-100' : 'btn btn-info w-100'">Enviar código</button>
       </div>
       <div>
         <table class="table table-dark">
@@ -54,6 +54,11 @@ export default {
         this.codigo = ''
       }).catch((error) => {
         console.log(error)
+        this.status = 500
+        const self = this
+        setTimeout(function () {
+          self.status = 0
+        }, 2000)
       })
     }
   }
