@@ -51,6 +51,7 @@ export default {
           self.status = 0
         }, 2000)
         this.codigos.push(response.data)
+        this.codigo = ''
       }).catch((error) => {
         console.log(error)
       })
