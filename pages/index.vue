@@ -42,24 +42,28 @@ export default {
   },
   methods: {
     enviarCodigo () {
-      this.$axios.post('http://localhost:8000/api/v1/create-code', {
-        codigo: this.codigo
-      }).then((response) => {
-        this.status = response.status
-        const self = this
-        setTimeout(function () {
-          self.status = 0
-        }, 2000)
-        this.codigos.push(response.data)
-        this.codigo = ''
-      }).catch((error) => {
-        console.log(error)
+      if (this.codigo !== '') {
+        this.$axios.post('http://localhost:8000/api/v1/create-code', {
+          codigo: this.codigo
+        }).then((response) => {
+          this.status = response.status
+          const self = this
+          setTimeout(function () {
+            self.status = 0
+          }, 2000)
+          this.codigos.push(response.data)
+          this.codigo = ''
+        }).catch((error) => {
+          console.log(error)
+          this.status = 500
+          const self = this
+          setTimeout(function () {
+            self.status = 0
+          }, 2000)
+        })
+      } else {
         this.status = 500
-        const self = this
-        setTimeout(function () {
-          self.status = 0
-        }, 2000)
-      })
+      }
     }
   }
 }
