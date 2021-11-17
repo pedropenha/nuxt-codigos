@@ -63,6 +63,10 @@ export default {
         })
       } else {
         this.status = 500
+        const self = this
+        setTimeout(function () {
+          self.status = 0
+        }, 2000)
       }
     }
   }
